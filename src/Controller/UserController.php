@@ -40,6 +40,11 @@ class UserController extends AbstractController
             $user->setRoles(['ROLE_USER']);
             $password = $form['password']->getData();
             $user->setPassword($passwordEncoder->encodePassword($user, $password));
+            $user->setIsBanned(false);
+            $user->setAddress('Calle Peru 1');
+            $user->setName('Admin');
+            $user->setSurname('Admin');
+            $user->setPhone('690100337');
             $entityManager->persist($user);
             $entityManager->flush();
 

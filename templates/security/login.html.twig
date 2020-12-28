@@ -21,40 +21,17 @@
 													</form> #}
 
 	<!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
-	{# <div class="text-center h-100">
-	            <div class="m-auto">
-	                    <form class="form-signin justify-content-center">
-	                        <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-	                        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-	                        <div class="mb-3">
-	                            <label for="inputEmail" class="sr-only">Email address</label>
-	                            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-	                        </div>
-	                        <div class="mb-3">
-	                        <label for="inputPassword" class="sr-only">Password</label>
-	                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-	                        </div>
-	                        <div class="checkbox mb-3">
-	                            <label>
-	                                <input type="checkbox" value="remember-me">
-	                                Remember me
-	                            </label>
-	                        </div>
-	                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-	                        <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
-	                    </form>
-	            </div>
-	        </div> #}
     <div class="container d-flex text-center h-100 w-100">
         <div class="row justify-content-center align-items-center h-100 w-100">
             <div class="col">
-                <form class="form-signin">
+                <form class="form-signin" method="POST">
                 <img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
                 <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
                 <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+                <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="">
+                <input type="hidden" name="_csrf_token" value="{{csrf_token('authenticate')}}">
                 <div class="checkbox mb-3">
                     <label>
                     <input type="checkbox" value="remember-me"> Remember me
