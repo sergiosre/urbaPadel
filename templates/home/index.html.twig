@@ -3,6 +3,16 @@
 {% block title %}Home
 {% endblock %}
 {% block body %}
-{% include "header.html.twig" %}
-
+	{% include "header.html.twig" %}
+	<div class="container my-5">
+		<div class="row">
+		{% for numero in numeros %}
+			<div class="col-12 col-sm-12 col-md-12 col-lg-6 mb-2">
+				<div class="card">
+					<div class="card-body">numero</div>
+				</div>
+			</div>
+		{% endfor %}
+		</div>
+	</div>
 {% endblock %}
