@@ -4,15 +4,38 @@
 {% endblock %}
 {% block body %}
 	{% include "header.html.twig" %}
-	<div class="container my-5">
+	<div class="container-fluid my-5">
 		<div class="row">
-		{% for numero in numeros %}
-			<div class="col-12 col-sm-12 col-md-12 col-lg-6 mb-2">
-				<div class="card">
-					<div class="card-body">numero</div>
+			{% for numero in numeros %}
+				<div class="col-12 col-sm-12 col-md-12 col-lg-6 shadow-sm bg-white rounded mb-2 p-3">
+					<div class="card">
+						<div class="card-header text-muted">01/01/2021 - 17:00</div>
+						<div class="card-body text-center">
+							<div class="row">
+								<div class="col-3 d-flex justify-content-center my-2">
+									<div class="rounded-circle player bg-success"></div>
+								</div>
+								<div class="col-3 d-flex justify-content-center border-right my-2">
+									<div class="rounded-circle player bg-success"></div>
+								</div>
+								<div class="col-3 d-flex justify-content-center my-2">
+									<div class="rounded-circle player bg-success"></div>
+								</div>
+								<div class="col-3 d-flex justify-content-center my-2">
+									<div class="rounded-circle player bg-success"></div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-muted text-left">
+							<div class="row">
+								<div class="col-10 border-right">Calle Mario Moreno Cantinflas 60</div>
+								<div class="col-2">Nival A</div>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-		{% endfor %}
+			{% endfor %}
 		</div>
 	</div>
+
 {% endblock %}
