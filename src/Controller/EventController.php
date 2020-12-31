@@ -6,15 +6,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+/**
+ * @Route("/event")
+ */
+
+class EventController extends AbstractController
 {
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="event_index")
      */
     public function index(): Response
     {
-        return $this->render('home/index.html.twig', [
-            'numeros' => [1,2,3,4,5],
+        return $this->render('event/index.html.twig', [
+            'numeros' => [1, 2, 3, 4, 5],
         ]);
     }
 }
