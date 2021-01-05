@@ -1,5 +1,9 @@
 .player {
-    height: 70px;
-    width: 70px;
+    height: 8vh;
+    width: 8vh;
     border: 1px solid rgb( 171, 178, 185 );
+}
+
+.card-container{
+    height: 25vh;
 }
