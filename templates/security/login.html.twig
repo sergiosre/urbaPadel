@@ -4,49 +4,60 @@
 {% endblock %}
 
 {% block body %}
-	{#
-						        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-						        See https://symfony.com/doc/current/security/remember_me.html
-						
-						        <div class="checkbox mb-3">
-						            <label>
-						                <input type="checkbox" name="_remember_me"> Remember me
-						            </label>
-						        </div>
-						    #}
-
-	{# <button class="btn btn-lg btn-primary" type="submit">
-															        Sign in
-															    </button>
-															</form> #}
-
-	<!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
-		<div class="container w-100 h-100">
-		<div class="row w-100 h-100 mx-auto">
-            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 mx-auto my-auto text-center">
-                <p>LOGO</p>
-            </div>
-			<div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 mx-auto">
-				<!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-				<!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-					<form method="POST" name="sentMessage" id="contactForm" novalidate="novalidate" action="https://formspree.io/sergioromero.sre@gmail.com"> <div class="control-group">
-						<div class="form-group floating-label-form-group controls mb-0 pb-2">
-							<label>Email</label>
-							<input class="form-control" id="name" name="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter your name.">
-							<p class="help-block text-danger"></p>
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="form-group floating-label-form-group controls mb-0 pb-2">
-							<label>Contraseña</label>
-							<input class="form-control" id="password" name="password" type="password" placeholder="Contraseña" required="required">
-							<p class="help-block text-danger"></p>
-						</div>
-					</div>
-					<div class="form-group d-flex justify-content-center">
-						<button type="submit" class="btn btn-primary btn-xl w-50" id="sendMessageButton">Send</button>
-					</div>
-				</form>
-			</div>
+{#
+											        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+											        See https://symfony.com/doc/current/security/remember_me.html
+											
+											        <div class="checkbox mb-3">
+											            <label>
+											                <input type="checkbox" name="_remember_me"> Remember me
+											            </label>
+											        </div>
+											    #}
+<div class="container w-100 h-100">
+	<div class="row w-100 h-100 mx-auto">
+		<div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 mx-auto my-auto text-center">
+			<p>LOGO</p>
 		</div>
+		<div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 mx-auto">
+			<form method="POST" name="sentMessage" id="loginForm">
+				<div class="control-group">
+					<div class="form-group floating-label-form-group controls mb-0 pb-2">
+						<label>Email</label>
+						<input class="form-control" id="email" value="{{ last_username }}" name="inputEmail"
+							type="email" placeholder="Email" required="required" autofocus>
+						<p class="help-block text-danger"></p>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="form-group floating-label-form-group controls mb-0 pb-2">
+						<label>Contraseña</label>
+						<input class="form-control" id="password" name="inputPassword" type="password"
+							placeholder="Contraseña" required="required">
+						<p class="help-block text-danger"></p>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+					</div>
+				</div>
+				{% if error %}
+				<div class="form-group d-flex justify-content-center">
+					<p class="text-danger">Usuario o Contraseña incorrectos</p>
+				</div>
+				{% endif %}
+				<div class="form-group d-flex justify-content-center">
+					<button type="submit" class="btn btn-primary btn-xl w-50" id="sendMessageButton">
+						<i class="fas fa-sync-alt"></i>
+						<span>Entrar</span>
+					</button>
+				</div>
+				<div class="control-group d-flex justify-content-center">
+					<div class="form-group floating-label-form-group controls mb-0 pb-2">
+						<label>¿No tienes cuenta?</label>
+						<a href="{{ path('user_new') }}">
+							<span class="badge badge-success">Regístrate</span>
+						</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 	{% endblock %}
