@@ -34,6 +34,7 @@ class UserController extends AbstractController
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+        $success = false;
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -41,19 +42,23 @@ class UserController extends AbstractController
             $password = $form['password']->getData();
             $user->setPassword($passwordEncoder->encodePassword($user, $password));
             $user->setIsBanned(false);
-            $user->setAddress($form['address']->getData());
-            $user->setName($form['name']->getData());
-            $user->setSurname($form['surname']->getData());
-            $user->setPhone($form['phone']->getData());
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('user_index');
+            $user = $form->getData();
+            try {
+                // Controlar si existe el email
+                $entityManager->persist($user);
+                $entityManager->flush();
+            } catch (\Exception $e) {
+                $success = false;
+                $this->addFlash('register_info', 'No se ha podido completar el registro, intentelo de nuevo mas tarde');
+                return $this->redirectToRoute('user_new');
+            }
+            $success = true;
+            $this->addFlash('register_info', '¡Te has registrado correctamente!');
         }
 
         return $this->render('user/new.html.twig', [
-            'user' => $user,
             'form' => $form->createView(),
+            'success' => $success
         ]);
     }
 
