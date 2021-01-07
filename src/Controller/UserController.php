@@ -53,6 +53,11 @@ class UserController extends AbstractController
                 return $this->redirectToRoute('user_new');
             }
             $success = true;
+            // Limipio el form y el objeto user (reinicializo)
+            unset($entity);
+            unset($form);
+            $user = new User();
+            $form = $this->createForm(UserType::class, $user);
             $this->addFlash('register_info', '¡Te has registrado correctamente!');
         }
 

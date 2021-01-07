@@ -38,7 +38,7 @@ class UserType extends AbstractType
                         'min' => 9,
                         'max' => 9
                     ]),
-                    new Regex('/(6|7)[ -]*([0-9][ -]*){9}/')
+                    new Regex('/(6|7)[ -]*([0-9][ -]*){8}/')
                 ]
             ])
             ->add('name', TextType::class, [
