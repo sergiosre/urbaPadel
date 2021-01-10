@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use DateTime;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,6 +37,8 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         $success = false;
+        $date = new DateTime();
+        $date->format('Y-m-d H:i:s');
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -42,6 +46,8 @@ class UserController extends AbstractController
             $password = $form['password']->getData();
             $user->setPassword($passwordEncoder->encodePassword($user, $password));
             $user->setIsBanned(false);
+            $user->setIsActive(true);
+            $user->setRegisterDate($date);
             $user = $form->getData();
             try {
                 // Controlar si existe el email
@@ -80,12 +86,14 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $password = $form['password']->getData();
+            $user->setPassword($passwordEncoder->encodePassword($user, $password));
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_index');
