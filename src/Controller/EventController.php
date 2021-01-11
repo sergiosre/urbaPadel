@@ -30,8 +30,7 @@ class EventController extends AbstractController
         $form = $this->createForm(EventType::class, $event, [
             'action' => $this->generateUrl('event_new')
         ]);
-        // dump($events);
-        // die;
+
         return $this->render('event/index.html.twig', [
             'events' => $events,
             'form' => $form->createView(),
@@ -65,10 +64,7 @@ class EventController extends AbstractController
             $response['success'] = true;
             $response['message'] = '¡Partido creado correctamente!';
         }
-        return new JsonResponse($response);
-        // return $this->render('user/new.html.twig', [
-        //     'form' => $form->createView(),
-        //     'response' => $response
-        // ]);
+        $response = new JsonResponse($response);
+        return $this->redirectToRoute('event_index');
     }
 }

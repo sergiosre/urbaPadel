@@ -28,22 +28,26 @@ class Event
     private $level;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $player_1;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $player_2;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $player_3;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $player_4;
 
@@ -99,36 +103,36 @@ class Event
         return $this;
     }
 
-    public function getPlayer2(): ?int
+    public function getPlayer2(): ?User
     {
         return $this->player_2;
     }
 
-    public function setPlayer2(?int $player_2): self
+    public function setPlayer2(?User $player_2): self
     {
         $this->player_2 = $player_2;
 
         return $this;
     }
 
-    public function getPlayer3(): ?int
+    public function getPlayer3(): ?User
     {
         return $this->player_3;
     }
 
-    public function setPlayer3(?int $player_3): self
+    public function setPlayer3(?User $player_3): self
     {
         $this->player_3 = $player_3;
 
         return $this;
     }
 
-    public function getPlayer4(): ?int
+    public function getPlayer4(): ?User
     {
         return $this->player_4;
     }
 
-    public function setPlayer4(?int $player_4): self
+    public function setPlayer4(?User $player_4): self
     {
         $this->player_4 = $player_4;
 

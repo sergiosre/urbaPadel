@@ -25,22 +25,38 @@ Urban Padel - Partidos
 					<div class="row">
 						<div class="col-3 d-flex justify-content-center my-2">
 							<div class="d-flex rounded-circle player justify-content-center align-items-center">
-								<i class="fas fa-plus-circle 7x">{{event.player1}}</i>
+								{% if event.player1 %}
+									<span>{{event.player1.name}}</span>
+									{% else %}
+									<i class="fas fa-plus-circle 7x"></i>
+								{% endif %}
 							</div>
 						</div>
 						<div class="col-3 d-flex justify-content-center border-right my-2">
 							<div class="d-flex rounded-circle player justify-content-center align-items-center">
-								<i class="fas fa-plus-circle">{{event.player2}}</i>
+								{% if event.player2 %}
+									<span>{{event.player2.name}}</span>
+									{% else %}
+									<i class="fas fa-plus-circle 7x"></i>
+								{% endif %}
 							</div>
 						</div>
 						<div class="col-3 d-flex justify-content-center my-2">
 							<div class="d-flex rounded-circle player justify-content-center align-items-center">
-								<i class="fas fa-plus-circle 7x">{{event.player3}}</i>
+								{% if event.player3 %}
+									<span>{{event.player3.name}}</span>
+									{% else %}
+									<i class="fas fa-plus-circle 7x"></i>
+								{% endif %}
 							</div>
 						</div>
 						<div class="col-3 d-flex justify-content-center my-2">
 							<div class="d-flex rounded-circle player justify-content-center align-items-center">
-								<i class="fas fa-plus-circle 7x">{{event.player4}}</i>
+								{% if event.player4 %}
+									<span>{{event.player4.name}}</span>
+									{% else %}
+									<i class="fas fa-plus-circle 7x"></i>
+								{% endif %}
 							</div>
 						</div>
 					</div>
@@ -48,7 +64,7 @@ Urban Padel - Partidos
 				<div class="card-footer text-muted text-left p-0">
 					<div class="row mx-0 align-items-center">
 						<div class="col-8 p-2">{{event.User.address}}</div>
-						<div class="col-4 border-left">{{event.level}}</div>
+						<div class="col-4 border-left">Nivel {{event.level}}</div>
 					</div>
 				</div>
 			</div>
