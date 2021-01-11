@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use DateTime;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,23 +31,26 @@ class UserController extends AbstractController
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
      */
-    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
-    {
+    public function new(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        EntityManagerInterface $entityManager
+    ): Response {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         $success = false;
-        $date = new DateTime();
-        $date->format('Y-m-d H:i:s');
+        $registerDate = new DateTime();
+        $registerDate->format('Y-m-d H:i:s');
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            // $entityManager = $this->getDoctrine()->getManager();
             $user->setRoles(['ROLE_USER']);
             $password = $form['password']->getData();
             $user->setPassword($passwordEncoder->encodePassword($user, $password));
             $user->setIsBanned(false);
             $user->setIsActive(true);
-            $user->setRegisterDate($date);
+            $user->setRegisterDate($registerDate);
             $user = $form->getData();
             try {
                 // Controlar si existe el email
@@ -86,15 +89,19 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
-    {
+    public function edit(
+        Request $request,
+        User $user,
+        UserPasswordEncoderInterface $passwordEncoder,
+        EntityManagerInterface $entityManager
+    ): Response {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $form['password']->getData();
             $user->setPassword($passwordEncoder->encodePassword($user, $password));
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager->flush();
 
             return $this->redirectToRoute('user_index');
         }

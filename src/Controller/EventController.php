@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\User;
 use App\Form\EventType;
+use App\Repository\EventRepository;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,15 +23,17 @@ class EventController extends AbstractController
     /**
      * @Route("/", name="event_index")
      */
-    public function index(): Response
+    public function index(EventRepository $eventRepository): Response
     {
+        $events = $eventRepository->findAll();
         $event = new Event();
         $form = $this->createForm(EventType::class, $event, [
             'action' => $this->generateUrl('event_new')
         ]);
-
+        // dump($events);
+        // die;
         return $this->render('event/index.html.twig', [
-            'numeros' => [1, 2, 3, 4, 5],
+            'events' => $events,
             'form' => $form->createView(),
         ]);
     }
@@ -37,25 +41,19 @@ class EventController extends AbstractController
     /**
      * @Route("/new", name="event_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $createdDate = new DateTime("NOW");
         $event = new Event();
-        $user = new User();
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
         $response = [];
         $user = $this->getUser();
-        // var_dump($userId);
-        // die;
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $event->setCreatedDate($createdDate);
-            // dump($user->getId());
-            // die;
-            $event->setIdUser($user);
+            $event->setPlayer1($user);
+            $event->setUser($user);
             try {
-                // Controlar si existe el email
                 $entityManager->persist($event);
                 $entityManager->flush();
             } catch (\Exception $e) {
@@ -65,7 +63,7 @@ class EventController extends AbstractController
                 return new JsonResponse($response);
             }
             $response['success'] = true;
-            $response['message'] = true;
+            $response['message'] = '¡Partido creado correctamente!';
         }
         return new JsonResponse($response);
         // return $this->render('user/new.html.twig', [

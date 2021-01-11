@@ -17,34 +17,38 @@ Urban Padel - Partidos
 		{% include "event/_new_event.html.twig" %}
 	</div>
 	<div class="row">
-		{% for numero in numeros %}
+		{% for event in events %}
 		<div class="col-sm-12 col-md-12 col-lg-6 col-xl-12 mb-5">
 			<div class="card">
-				<div class="card-header text-muted">01/01/2021 - 17:00</div>
+				<div class="card-header text-muted">{{event.date|date("d/m/Y")}}</div>
 				<div class="card-body text-center">
 					<div class="row">
 						<div class="col-3 d-flex justify-content-center my-2">
 							<div class="d-flex rounded-circle player justify-content-center align-items-center">
-								<i class="fas fa-plus-circle 7x"></i>
+								<i class="fas fa-plus-circle 7x">{{event.player1}}</i>
 							</div>
 						</div>
 						<div class="col-3 d-flex justify-content-center border-right my-2">
 							<div class="d-flex rounded-circle player justify-content-center align-items-center">
-								<i class="fas fa-plus-circle"></i>
+								<i class="fas fa-plus-circle">{{event.player2}}</i>
 							</div>
 						</div>
 						<div class="col-3 d-flex justify-content-center my-2">
-							<div class="rounded-circle player bg-success"></div>
+							<div class="d-flex rounded-circle player justify-content-center align-items-center">
+								<i class="fas fa-plus-circle 7x">{{event.player3}}</i>
+							</div>
 						</div>
 						<div class="col-3 d-flex justify-content-center my-2">
-							<div class="rounded-circle player bg-success"></div>
+							<div class="d-flex rounded-circle player justify-content-center align-items-center">
+								<i class="fas fa-plus-circle 7x">{{event.player4}}</i>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="card-footer text-muted text-left p-0">
 					<div class="row mx-0 align-items-center">
-						<div class="col-8 p-2">Calle Mario Moreno Cantinflas 60</div>
-						<div class="col-4 border-left">Nivel A</div>
+						<div class="col-8 p-2">{{event.User.address}}</div>
+						<div class="col-4 border-left">{{event.level}}</div>
 					</div>
 				</div>
 			</div>

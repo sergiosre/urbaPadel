@@ -48,15 +48,15 @@ class Event
     private $player_4;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $User;
-
-    /**
      * @ORM\Column(type="date")
      */
     private $createdDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -87,12 +87,12 @@ class Event
         return $this;
     }
 
-    public function getPlayer1(): ?int
+    public function getPlayer1(): ?User
     {
         return $this->player_1;
     }
 
-    public function setPlayer1(?int $player_1): self
+    public function setPlayer1(?User $player_1): self
     {
         $this->player_1 = $player_1;
 
@@ -135,18 +135,6 @@ class Event
         return $this;
     }
 
-    public function getIdUser(): ?User
-    {
-        return $this->User;
-    }
-
-    public function setIdUser(?User $user): self
-    {
-        $this->User = $user;
-
-        return $this;
-    }
-
     public function getCreatedDate(): ?\DateTimeInterface
     {
         return $this->createdDate;
@@ -155,6 +143,18 @@ class Event
     public function setCreatedDate(\DateTimeInterface $createdDate): self
     {
         $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
