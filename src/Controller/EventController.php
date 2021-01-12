@@ -67,4 +67,26 @@ class EventController extends AbstractController
         $response = new JsonResponse($response);
         return $this->redirectToRoute('event_index');
     }
+
+    /**
+     * @Route("/join-event", name="event_join", options={"expose"=true}, methods={"GET","POST"},)
+     */
+    public function joinEvent(Request $request, EntityManagerInterface $entityManager, EventRepository $eventRepository)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $user = $this->getUser();
+            $eventId = $request->get('eventId');
+            $event = $eventRepository->find($eventId);
+            $event->setPlayer2($user);
+            $entityManager->flush();
+            $response = [
+                'success' => true,
+                'message' => '¡Inscripción al partido realizada!'
+            ];
+
+            return new JsonResponse($response);
+        } else {
+            throw new \Exception("Error en la petición");
+        }
+    }
 }
