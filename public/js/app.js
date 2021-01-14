@@ -3,8 +3,6 @@ function joinEvent(id) {
 
   swal({
     title: "¿Quieres apuntarte al partido?",
-    dangerMode: false,
-    icon: "success",
     buttons: {
       cancel: {
         text: "Cancelar",
@@ -20,7 +18,6 @@ function joinEvent(id) {
       },
     },
   }).then((isConfirm) => {
-    console.log(isConfirm);
     if (isConfirm) {
       $.ajax({
         type: "POST",

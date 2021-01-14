@@ -25,7 +25,9 @@ class EventController extends AbstractController
      */
     public function index(EventRepository $eventRepository): Response
     {
-        $events = $eventRepository->findAll();
+        $today = new DateTime("NOW");
+        $today = $today->format('Y-m-d');
+        $events = $eventRepository->getEvents($today);
         $event = new Event();
         $form = $this->createForm(EventType::class, $event, [
             'action' => $this->generateUrl('event_new')
