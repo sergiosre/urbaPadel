@@ -85,8 +85,11 @@ class EventController extends AbstractController
             ];
 
             return new JsonResponse($response);
-        } else {
-            throw new \Exception("Error en la petición");
         }
+        $response = [
+            'success' => false,
+            'message' => '¡Error al inscribirte en el partido!'
+        ];
+        return new JsonResponse($response);
     }
 }

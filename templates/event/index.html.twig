@@ -30,11 +30,11 @@
 								</div>
 							</div>
 							<div class="col-3 d-flex justify-content-center border-right my-2">
-								<div class="d-flex rounded-circle player justify-content-center align-items-center" onclick="joinEvent({{event.id}})" >
+								<div class="d-flex rounded-circle player justify-content-center align-items-center">
 									{% if event.player2 %}
 										<span>{{event.player2.name}}</span>
 									{% else %}
-										<i class="fas fa-plus-circle 7x"></i>
+										<i class="fas fa-plus-circle 7x" onclick="joinEvent({{event.id}})"></i>
 									{% endif %}
 								</div>
 							</div>
@@ -75,7 +75,8 @@
 
 {% block javascripts %}
 	{{ parent() }}
-	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-	<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+	<script src="{{asset('bundles/fosjsrouting/js/router.js')}}"></script>
+	<script src="{{path('fos_js_routing_js', { callback: 'fos.Router.setData' })}}"></script>
+	<script src="{{asset('libs/sweetalert/sweetalert.min.js')}}"></script>
 	<script src="{{asset('js/app.js')}}"></script>
 {% endblock  %}
