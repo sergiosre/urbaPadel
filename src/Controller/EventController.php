@@ -73,20 +73,32 @@ class EventController extends AbstractController
     /**
      * @Route("/join-event", name="event_join", options={"expose"=true}, methods={"GET","POST"},)
      */
-    public function joinEvent(Request $request, EntityManagerInterface $entityManager, EventRepository $eventRepository)
+    public function joinEvent(Request $request, EntityManagerInterface $entityManager, EventRepository $eventRepository): JsonResponse
     {
+
         if ($request->isXmlHttpRequest()) {
             $user = $this->getUser();
             $eventId = $request->get('eventId');
-            $event = $eventRepository->find($eventId);
-            $event->setPlayer2($user);
-            $entityManager->flush();
-            $response = [
-                'success' => true,
-                'message' => '¡Inscripción al partido realizada!'
-            ];
+            // TODO: Recoger que en que posicion de jugador se inscribe
+            // $playerNumber = $request->get('playerNumber');
 
-            return new JsonResponse($response);
+            $userLogedSignedInEvent = $eventRepository->checkIfPlayerIsInEvent($eventId, $user->getId());
+            if (!$userLogedSignedInEvent) {
+                $event = $eventRepository->find($eventId);
+                $event->setPlayer2($user);
+                $entityManager->flush();
+                $response = [
+                    'success' => true,
+                    'message' => '¡Inscripción al partido realizada!'
+                ];
+                return new JsonResponse($response);
+            } else {
+                $response = [
+                    'success' => false,
+                    'message' => '¡Ya estas inscrito en el partido, no puedes volver a inscribirte!'
+                ];
+                return new JsonResponse($response);
+            }
         }
         $response = [
             'success' => false,

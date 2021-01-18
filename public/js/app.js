@@ -26,21 +26,29 @@ function joinEvent(id) {
         async: true,
         dataType: "json",
         success: function (response) {
-          console.log(response);
           if (response.success) {
             swal(response.message, {
               icon: "success",
               closeModal: true,
+            }).then((isConfirm) => {
+              if (isConfirm) {
+                location.reload();
+              }
             });
           } else {
             swal(response.message, {
               icon: "error",
               closeModal: true,
               dangerMode: true,
+            }).then((isConfirm) => {
+              if (isConfirm) {
+                location.reload();
+              }
             });
           }
         },
       });
+      // setTimeout(function () {}, 5000);
     }
   });
 }

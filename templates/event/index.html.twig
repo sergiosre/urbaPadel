@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Urban Padel - Partidos
+Urban Padel - Partidos
 {% endblock %}
 
 {% block stylesheets %}
-	{{ parent() }}
-	<link rel="stylesheet" href="{{asset('css/event.css')}}">
+{{ parent() }}
+<link rel="stylesheet" href="{{asset('css/event.css')}}">
 </link>{% endblock %}{% block body %}
 {% include "header.html.twig" %}
 <div class="container-fluid my-5">
@@ -15,58 +15,61 @@
 	</div>
 	<div class="row">
 		{% for event in events %}
-			<div class="col-sm-12 col-md-12 col-lg-6 col-xl-12 mb-5">
-				<div class="card">
-					<div class="card-header text-muted">{{event.date|date("d/m/Y")}}</div>
-					<div class="card-body text-center">
-						<div class="row">
-							<div class="col-3 d-flex justify-content-center my-2">
-								<div class="d-flex rounded-circle player justify-content-center align-items-center">
-									{% if event.player1 %}
-										<span>{{event.player1.name}}</span>
-									{% else %}
-										<i class="fas fa-plus-circle 7x"></i>
-									{% endif %}
-								</div>
-							</div>
-							<div class="col-3 d-flex justify-content-center border-right my-2">
-								<div class="d-flex rounded-circle player justify-content-center align-items-center">
-									{% if event.player2 %}
-										<span>{{event.player2.name}}</span>
-									{% else %}
-										<i class="fas fa-plus-circle 7x" onclick="joinEvent({{event.id}})"></i>
-									{% endif %}
-								</div>
-							</div>
-							<div class="col-3 d-flex justify-content-center my-2">
-								<div class="d-flex rounded-circle player justify-content-center align-items-center">
-									{% if event.player3 %}
-										<span>{{event.player3.name}}</span>
-									{% else %}
-										<i class="fas fa-plus-circle 7x"></i>
-									{% endif %}
-								</div>
-							</div>
-							<div class="col-3 d-flex justify-content-center my-2">
-								<div class="d-flex rounded-circle player justify-content-center align-items-center">
-									{% if event.player4 %}
-										<span>{{event.player4.name}}</span>
-									{% else %}
-										<i class="fas fa-plus-circle 7x"></i>
-									{% endif %}
-								</div>
+		<div class="col-sm-12 col-md-12 col-lg-6 col-xl-12 mb-5">
+			<div class="card">
+				<div class="card-header text-muted">{{event.date|date("d/m/Y")}}</div>
+				<div class="card-body text-center">
+					<div class="row">
+						<div class="col-3 d-flex justify-content-center my-2">
+							<div class="d-flex rounded-circle player justify-content-center align-items-center">
+								{% if event.player1 %}
+								<span>{{event.player1.name}}</span>
+								{% else %}
+								<i class="fas fa-plus-circle 7x"></i>
+								{% endif %}
 							</div>
 						</div>
-					</div>
-					<div class="card-footer text-muted text-left p-0">
-						<div class="row mx-0 align-items-center">
-							<div class="col-8 p-2">{{event.User.address}}</div>
-							<div class="col-4 border-left">Nivel
-								{{event.level}}</div>
+						<div class="col-3 d-flex justify-content-center border-right my-2">
+							<div class="d-flex rounded-circle player justify-content-center align-items-center"
+								{% if event.player2 != true %} onclick="joinEvent({{event.id}})" {% endif %}>
+								{% if event.player2 %}
+								<span>{{event.player2.name}}</span>
+								{% else %}
+								<i class="fas fa-plus-circle 7x"></i>
+								{% endif %}
+							</div>
+						</div>
+						<div class="col-3 d-flex justify-content-center my-2">
+							<div class="d-flex rounded-circle player justify-content-center align-items-center"
+								{% if event.player3 != true %} onclick="joinEvent({{event.id}})" {% endif %}>
+								{% if event.player3 %}
+								<span>{{event.player3.name}}</span>
+								{% else %}
+								<i class="fas fa-plus-circle 7x"></i>
+								{% endif %}
+							</div>
+						</div>
+						<div class="col-3 d-flex justify-content-center my-2">
+							<div class="d-flex rounded-circle player justify-content-center align-items-center"
+								{% if event.player4 != true %} onclick="joinEvent({{event.id}})" {% endif %}>
+								{% if event.player4 %}
+								<span>{{event.player4.name}}</span>
+								{% else %}
+								<i class="fas fa-plus-circle 7x"></i>
+								{% endif %}
+							</div>
 						</div>
 					</div>
 				</div>
+				<div class="card-footer text-muted text-left p-0">
+					<div class="row mx-0 align-items-center">
+						<div class="col-8 p-2">{{event.User.address}}</div>
+						<div class="col-4 border-left">Nivel
+							{{event.level}}</div>
+					</div>
+				</div>
 			</div>
+		</div>
 		{% endfor %}
 	</div>
 </div>
@@ -74,9 +77,9 @@
 {% endblock %}
 
 {% block javascripts %}
-	{{ parent() }}
-	<script src="{{asset('bundles/fosjsrouting/js/router.js')}}"></script>
-	<script src="{{path('fos_js_routing_js', { callback: 'fos.Router.setData' })}}"></script>
-	<script src="{{asset('libs/sweetalert/sweetalert.min.js')}}"></script>
-	<script src="{{asset('js/app.js')}}"></script>
+{{ parent() }}
+<script src="{{asset('bundles/fosjsrouting/js/router.js')}}"></script>
+<script src="{{path('fos_js_routing_js', { callback: 'fos.Router.setData' })}}"></script>
+<script src="{{asset('libs/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{asset('js/app.js')}}"></script>
 {% endblock  %}

@@ -32,6 +32,22 @@ class EventRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
+    public function checkIfPlayerIsInEvent(int $eventId, int $userId)
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->andWhere('e.id = :eventId')
+            ->andWhere('e.player_1 = :userId')
+            ->orWhere('e.player_2 = :userId')
+            ->orWhere('e.player_3 = :userId')
+            ->orWhere('e.player_4 = :userId')
+            ->setParameter('userId', $userId)
+            ->setParameter('eventId', $eventId);
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

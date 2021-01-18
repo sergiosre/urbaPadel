@@ -74,25 +74,16 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
-     */
-    public function show(User $user): Response
-    {
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
 
     /**
-     * @Route("/profile", name="user_edit", methods={"GET","POST"})
+     * @Route("/profile", name="user_profile", methods={"GET", "POST"})
      */
-    public function edit(
+    public function profile(
         Request $request,
-        User $user,
         UserPasswordEncoderInterface $passwordEncoder,
         EntityManagerInterface $entityManager
     ): Response {
+        $user = $this->getUser();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
