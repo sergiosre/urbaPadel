@@ -32,8 +32,9 @@ Urban Padel - Partidos
 							</div>
 						</div>
 						<div class="col-3 d-flex justify-content-center border-right my-2">
-							<div class="d-flex rounded-circle player justify-content-center align-items-center"
-								{% if event.player2 != true %} onclick="joinEvent({{event.id}})" {% endif %}>
+							<div class="d-flex rounded-circle player justify-content-center align-items-center clickable" id="player_2"
+								{% if event.player2 != true %} onclick="joinEvent({{event.id}})" {% endif %}
+								{% if app.user == event.player2 %} onclick="exitFromEvent({{event.id}})"  {% endif %}>
 								{% if event.player2 %}
 								<span>{{event.player2.name}}</span>
 								{% else %}
@@ -42,8 +43,9 @@ Urban Padel - Partidos
 							</div>
 						</div>
 						<div class="col-3 d-flex justify-content-center my-2">
-							<div class="d-flex rounded-circle player justify-content-center align-items-center"
-								{% if event.player3 != true %} onclick="joinEvent({{event.id}})" {% endif %}>
+							<div class="d-flex rounded-circle player justify-content-center align-items-center clickable" id="player_3"
+								{% if event.player3 != true %} onclick="joinEvent({{event.id}})" {% endif %} 
+								{% if app.user == event.player3 %} onclick="exitFromEvent({{event.id}})" {% endif %}>
 								{% if event.player3 %}
 								<span>{{event.player3.name}}</span>
 								{% else %}
@@ -52,8 +54,9 @@ Urban Padel - Partidos
 							</div>
 						</div>
 						<div class="col-3 d-flex justify-content-center my-2">
-							<div class="d-flex rounded-circle player justify-content-center align-items-center"
-								{% if event.player4 != true %} onclick="joinEvent({{event.id}})" {% endif %}>
+							<div class="d-flex rounded-circle player justify-content-center align-items-center clickable" id="player_4"
+								{% if event.player4 != true %} onclick="joinEvent({{event.id}})" {% endif %} 
+								{% if app.user == event.player4 %} onclick="exitFromEvent({{event.id}})" {% endif %} >
 								{% if event.player4 %}
 								<span>{{event.player4.name}}</span>
 								{% else %}
@@ -66,7 +69,7 @@ Urban Padel - Partidos
 				<div class="card-footer text-muted text-left p-0">
 					<div class="row mx-0 align-items-center">
 						<div class="col-8 p-2">{{event.User.address}}</div>
-						<div class="col-4 border-left">Nivel
+						<div class="col-4 border-left">Nivel:
 							{{event.level}}</div>
 					</div>
 				</div>

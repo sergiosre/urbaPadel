@@ -33,7 +33,6 @@ class EventController extends AbstractController
         $form = $this->createForm(EventType::class, $event, [
             'action' => $this->generateUrl('event_new')
         ]);
-
         return $this->render('event/index.html.twig', [
             'events' => $events,
             'form' => $form->createView(),
@@ -91,6 +90,41 @@ class EventController extends AbstractController
             if (!$userLogedSignedInEvent) {
                 $event = $eventRepository->find($eventId);
                 $event->setPlayer2($user);
+                $entityManager->flush();
+                $response = [
+                    'success' => true,
+                    'message' => '¡Inscripción al partido realizada!'
+                ];
+                return new JsonResponse($response);
+            } else {
+                $response = [
+                    'success' => false,
+                    'message' => '¡Ya estas inscrito en el partido, no puedes volver a inscribirte!'
+                ];
+                return new JsonResponse($response);
+            }
+        }
+        $response = [
+            'success' => false,
+            'message' => '¡Error al inscribirte en el partido!'
+        ];
+        return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/exit-event", name="event_exit", options={"expose"=true}, methods={"POST"},)
+     */
+    public function exitEvent(Request $request, EntityManagerInterface $entityManager, EventRepository $eventRepository): JsonResponse
+    {
+
+        if ($request->isXmlHttpRequest()) {
+            $eventId = $request->get('eventId');
+            $playerNumber = $request->get('playerPosition');
+            // TODO: Verificar si el jugador q
+            $userLogedSignedInEvent = $eventRepository->checkIfPlayerIsInEvent($eventId, $user->getId());
+            if (!$userLogedSignedInEvent) {
+                $event = $eventRepository->find($eventId);
+                $event->setPlayer2(NULL);
                 $entityManager->flush();
                 $response = [
                     'success' => true,

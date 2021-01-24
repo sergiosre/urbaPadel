@@ -26,7 +26,7 @@ class Event
     private $hour;
 
     /**
-     * @ORM\Column(type="string", length=2)
+     * @ORM\Column(type="string", length=20)
      */
     private $level;
 

@@ -56,18 +56,21 @@ class EventType extends AbstractType
                 ]
             ])
             ->add('hour', ChoiceType::class, [
-                'label' => 'Fecha',
+                'label' => 'Hora',
                 'required' => true,
-                'choices' => self::EVENT_HOURS
+                'choices' => self::EVENT_HOURS,
+                'placeholder' => 'Selecciona...',
+
             ])
             ->add('level', ChoiceType::class, [
                 'label' => 'Nivel',
                 'required' => true,
                 'choices' => [
-                    'Iniciación' => 1,
-                    'Medio' => 2,
-                    'Avanzado' => 3
-                ]
+                    'Iniciación' => 'Iniciación',
+                    'Intermedio' => 'Intermedio',
+                    'Avanzado' => 'Avanzado'
+                ],
+                'placeholder' => 'Selecciona...',
             ]);
     }
 
