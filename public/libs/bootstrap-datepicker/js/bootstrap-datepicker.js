@@ -1675,7 +1675,7 @@
 
 	var defaults = $.fn.datepicker.defaults = {
 		assumeNearbyYear: false,
-		autoclose: false,
+		autoclose: true,
 		beforeShowDay: $.noop,
 		beforeShowMonth: $.noop,
 		beforeShowYear: $.noop,
@@ -1692,7 +1692,7 @@
 		format: 'mm/dd/yyyy',
 		keepEmptyValues: false,
 		keyboardNavigation: true,
-		language: 'en',
+		language: 'es',
 		minViewMode: 0,
 		maxViewMode: 4,
 		multidate: false,
@@ -1702,7 +1702,7 @@
 		startDate: -Infinity,
 		startView: 0,
 		todayBtn: false,
-		todayHighlight: false,
+		todayHighlight: true,
 		updateViewDate: true,
 		weekStart: 0,
 		disableTouchKeyboard: false,

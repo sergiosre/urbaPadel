@@ -1,3 +1,13 @@
+$("#create-event-form").submit(function (e) {
+  $("#btn-create-event").prop("disabled", true);
+});
+
+$("#datepicker").datepicker({
+  format: "dd-m-yyyy",
+  showOn: "button",
+  orientation: "auto",
+});
+
 function joinEvent(id) {
   var url = Routing.generate("event_join");
 
@@ -48,7 +58,6 @@ function joinEvent(id) {
           }
         },
       });
-      // setTimeout(function () {}, 5000);
     }
   });
 }

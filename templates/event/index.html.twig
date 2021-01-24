@@ -7,6 +7,8 @@ Urban Padel - Partidos
 {% block stylesheets %}
 {{ parent() }}
 <link rel="stylesheet" href="{{asset('css/event.css')}}">
+<link rel="stylesheet" href="{{asset('libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css')}}"></script>
+
 </link>{% endblock %}{% block body %}
 {% include "header.html.twig" %}
 <div class="container-fluid my-5">
@@ -17,7 +19,7 @@ Urban Padel - Partidos
 		{% for event in events %}
 		<div class="col-sm-12 col-md-12 col-lg-6 col-xl-12 mb-5">
 			<div class="card">
-				<div class="card-header text-muted">{{event.date|date("d/m/Y")}}</div>
+				<div class="card-header text-muted">{{event.date|date("d-m-Y H:i")}}</div>
 				<div class="card-body text-center">
 					<div class="row">
 						<div class="col-3 d-flex justify-content-center my-2">
@@ -81,5 +83,7 @@ Urban Padel - Partidos
 <script src="{{asset('bundles/fosjsrouting/js/router.js')}}"></script>
 <script src="{{path('fos_js_routing_js', { callback: 'fos.Router.setData' })}}"></script>
 <script src="{{asset('libs/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{asset('libs/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('libs/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js')}}"></script>
 <script src="{{asset('js/app.js')}}"></script>
 {% endblock  %}

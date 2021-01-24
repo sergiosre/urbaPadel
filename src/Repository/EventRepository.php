@@ -22,7 +22,6 @@ class EventRepository extends ServiceEntityRepository
 
     public function getEvents($today)
     {
-
         $qb = $this->createQueryBuilder('e')
             ->where('e.date > :today')
             ->setParameter('today', $today);

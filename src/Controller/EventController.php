@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @Route("/event")
@@ -21,12 +22,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class EventController extends AbstractController
 {
     /**
-     * @Route("/", name="event_index")
+     * @Route("/", name="event_index", methods={"GET"})
      */
     public function index(EventRepository $eventRepository): Response
     {
         $today = new DateTime("NOW");
-        $today = $today->format('Y-m-d');
+        $today = $today->format('Y-m-d H:i');
         $events = $eventRepository->getEvents($today);
         $event = new Event();
         $form = $this->createForm(EventType::class, $event, [
@@ -48,10 +49,14 @@ class EventController extends AbstractController
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
+
+
         $response = [];
         $user = $this->getUser();
         if ($form->isSubmitted() && $form->isValid()) {
+            $date = $form['date']->getData() . " " . $form['hour']->getData();
             $event->setCreatedDate($createdDate);
+            $event->setDate($date);
             $event->setPlayer1($user);
             $event->setUser($user);
             try {
@@ -71,7 +76,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/join-event", name="event_join", options={"expose"=true}, methods={"GET","POST"},)
+     * @Route("/join-event", name="event_join", options={"expose"=true}, methods={"POST"},)
      */
     public function joinEvent(Request $request, EntityManagerInterface $entityManager, EventRepository $eventRepository): JsonResponse
     {

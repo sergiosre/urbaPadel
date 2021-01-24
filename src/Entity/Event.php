@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,9 +19,11 @@ class Event
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $date;
+
+    private $hour;
 
     /**
      * @ORM\Column(type="string", length=2)
@@ -67,13 +70,14 @@ class Event
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?DateTime
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(string $date): self
     {
+        $date = new DateTime(date("d-m-Y H:i", strtotime($date)));
         $this->date = $date;
 
         return $this;
@@ -159,6 +163,26 @@ class Event
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of hour
+     */
+    public function getHour()
+    {
+        return $this->hour;
+    }
+
+    /**
+     * Set the value of hour
+     *
+     * @return  self
+     */
+    public function setHour($hour)
+    {
+        $this->hour = $hour;
 
         return $this;
     }
