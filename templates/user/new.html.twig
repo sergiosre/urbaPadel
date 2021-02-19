@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+<div class="container w-100 h-100">
+    <div class="row w-100 h-100 mx-auto">
+        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 mx-auto my-auto text-center">
+            <h1>REGISTRO</h1>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 mx-auto my-auto text-center">
+            {% for flash_message in app.session.flashbag.get('register_info') %}
+                {% if success %}
+                    <div class="alert alert-success">
+                        {{ flash_message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger">
+                        {{ flash_message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 mx-auto">
+            {{ form_start(form)}}
+
+            {{ form_row(form.name) }}
+            {{ form_row(form.surname) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.password) }}
+            {{ form_row(form.phone) }}
+            {{ form_row(form.address) }}
+            <div class="form-group d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary btn-xl w-50" id="registerButton">
+                    <span>Registrarte</span>
+                </button>
+            </div>
+            {{ form_end(form)}}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
